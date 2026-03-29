@@ -1,0 +1,11 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="RB Auction Search Suite" verbose="1" parallel="methods" thread-count="3">
+    <listeners>
+        <listener class-name="com.rbauction.listeners.TestListener"/>
+    </listeners>
+    <test name="Search Tests">
+        <classes>
+            <class name="com.rbauction.tests.smoke.SearchTests"/>
+        </classes>
+    </test>
+</suite>

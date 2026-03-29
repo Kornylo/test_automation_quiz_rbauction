@@ -1,0 +1,10 @@
+[
+  {
+    "searchTerm": "Ford F-150",
+    "expectedInFirstResult": "Ford F-150"
+  },
+  {
+    "searchTerm": "Chevrolet Colodrado",
+    "expectedInFirstResult": "Chevrolet Colodrado"
+  }
+]
