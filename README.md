@@ -26,7 +26,6 @@ Two tests pass, one intentionally fails. See [Test Scenarios](#test-scenarios) f
 | **ExtentReports** | Step-by-step HTML report with screenshot-on-failure |
 | **External Test Data** | Single JSON file + `@DataProvider` with type filtering and TestPlan/TestCase IDs |
 | **CI Ready** | GitHub Actions workflow included (`.github/workflows/test.yml`) |
-| **Retry Support** | `RetryAnalyzer` available (not actively applied, enable per-test) |
 
 ---
 
@@ -145,7 +144,6 @@ Pre-generated reports are included in the repository for immediate review.
 │   ├── config/
 │   │   └── ConfigReader.java             # Singleton config + env alias resolution
 │   ├── listeners/
-│   │   ├── RetryAnalyzer.java            # Flaky test retry (available, not applied)
 │   │   └── TestListener.java             # ExtentReports + step logging + screenshots
 │   ├── pages/
 │   │   ├── BasePage.java                 # Shared driver, waits, dialog handling
