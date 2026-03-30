@@ -41,6 +41,16 @@ public class ConfigReader {
     }
 
     public String getBaseUrl() {
+        String env = System.getProperty("env");
+        if (env != null && !env.isBlank()) {
+            String envKey = "env." + env.toLowerCase();
+            String envUrl = properties.getProperty(envKey);
+            if (envUrl == null || envUrl.isBlank()) {
+                throw new RuntimeException("Unknown environment: " + env
+                        + ". Supported: PROD, STG, DEV (or add env." + env.toLowerCase() + " to config.properties)");
+            }
+            return envUrl;
+        }
         return get("baseUrl", "base.url");
     }
 
@@ -62,5 +72,50 @@ public class ConfigReader {
 
     public long getDialogWaitTimeout() {
         return Long.parseLong(get("timeout.dialog.wait", "timeout.dialog.wait"));
+    }
+
+    public String getRemoteUrl() {
+        return getOptional("remoteUrl", "remote.url");
+    }
+
+    public boolean isRemote() {
+        String url = getRemoteUrl();
+        return url != null && !url.isBlank();
+    }
+
+    public String getBrowserVersion() {
+        return getOptional("browser.version", "browser.version");
+    }
+
+    public boolean isSelenoidVnc() {
+        return Boolean.parseBoolean(getOrDefault("selenoid.enable.vnc", "true"));
+    }
+
+    public boolean isSelenoidVideo() {
+        return Boolean.parseBoolean(getOrDefault("selenoid.enable.video", "false"));
+    }
+
+    private String getOptional(String systemKey, String fileKey) {
+        String fromSystem = System.getProperty(systemKey);
+        if (fromSystem != null && !fromSystem.isBlank()) {
+            return fromSystem;
+        }
+        String fromFile = properties.getProperty(fileKey);
+        if (fromFile == null || fromFile.isBlank()) {
+            return null;
+        }
+        return fromFile;
+    }
+
+    private String getOrDefault(String fileKey, String defaultValue) {
+        String fromSystem = System.getProperty(fileKey);
+        if (fromSystem != null && !fromSystem.isBlank()) {
+            return fromSystem;
+        }
+        String fromFile = properties.getProperty(fileKey);
+        if (fromFile == null || fromFile.isBlank()) {
+            return defaultValue;
+        }
+        return fromFile;
     }
 }
