@@ -73,49 +73,4 @@ public class ConfigReader {
     public long getDialogWaitTimeout() {
         return Long.parseLong(get("timeout.dialog.wait", "timeout.dialog.wait"));
     }
-
-    public String getRemoteUrl() {
-        return getOptional("remoteUrl", "remote.url");
-    }
-
-    public boolean isRemote() {
-        String url = getRemoteUrl();
-        return url != null && !url.isBlank();
-    }
-
-    public String getBrowserVersion() {
-        return getOptional("browser.version", "browser.version");
-    }
-
-    public boolean isSelenoidVnc() {
-        return Boolean.parseBoolean(getOrDefault("selenoid.enable.vnc", "true"));
-    }
-
-    public boolean isSelenoidVideo() {
-        return Boolean.parseBoolean(getOrDefault("selenoid.enable.video", "false"));
-    }
-
-    private String getOptional(String systemKey, String fileKey) {
-        String fromSystem = System.getProperty(systemKey);
-        if (fromSystem != null && !fromSystem.isBlank()) {
-            return fromSystem;
-        }
-        String fromFile = properties.getProperty(fileKey);
-        if (fromFile == null || fromFile.isBlank()) {
-            return null;
-        }
-        return fromFile;
-    }
-
-    private String getOrDefault(String fileKey, String defaultValue) {
-        String fromSystem = System.getProperty(fileKey);
-        if (fromSystem != null && !fromSystem.isBlank()) {
-            return fromSystem;
-        }
-        String fromFile = properties.getProperty(fileKey);
-        if (fromFile == null || fromFile.isBlank()) {
-            return defaultValue;
-        }
-        return fromFile;
-    }
 }

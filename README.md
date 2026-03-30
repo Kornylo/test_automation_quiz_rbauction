@@ -1,4 +1,4 @@
-<h1 align="center">Tese Automation Framework</h1>
+<h1 align="center">RB Auction Search Automation Framework</h1>
 
 <p align="center">
   End-to-end search testing for <a href="https://www.rbauction.com">rbauction.com</a> built with Java, Selenium WebDriver, TestNG, and ExtentReports.
@@ -19,25 +19,24 @@ Two tests pass, one intentionally fails. See [Test Scenarios](#test-scenarios) f
 
 | Feature | Details |
 |---------|---------|
-| **Page Object Model** | `BasePage` → `HomePage`, `SearchResultsPage`. Clean page abstraction |
-| **DriverFactory** | Chrome / Firefox, headless mode, local or remote (Selenoid/Grid) |
+| **Page Object Model** | `BasePage`, `HomePage`, `SearchResultsPage`. Clean page abstraction |
+| **DriverFactory** | Chrome / Firefox, headless mode, WebDriverManager auto-setup |
 | **Environment Aliases** | `-Denv=PROD\|STG\|DEV` resolves URLs from config |
 | **Parallel Execution** | 3 threads by default (`testng.xml`), configurable |
 | **ExtentReports** | Step-by-step HTML report with screenshot-on-failure |
-| **External Test Data** | JSON files + `@DataProvider`. No hardcoded values in tests |
+| **External Test Data** | JSON files + `@DataProvider` with TestPlan/TestCase IDs |
 | **CI Ready** | GitHub Actions workflow included (`.github/workflows/test.yml`) |
 | **Retry Support** | `RetryAnalyzer` available (not actively applied, enable per-test) |
-| **Remote Execution** | Selenoid / Selenium Grid via `-DremoteUrl` with VNC & video support |
 
 ---
 
 ## Test Scenarios
 
-| # | Method | Data | Expects |
-|---|--------|------|---------|
-| 1 | `shouldValidateSearchResultRelevance` | "Ford F-150" | Results > 0, first result contains "Ford F-150". **PASS** |
-| 2 | `shouldValidateSearchResultRelevance` | "Chevrolet Colodrado" | Results > 0, first result contains misspelling. **FAIL (expected)** |
-| 3 | `shouldUpdateResultsWhenYearFilterApplied` | "F-150", 2010-current | Result count changes after year filter. **PASS** |
+| # | Report Name | Expects |
+|---|-------------|---------|
+| 1 | `TP-001 \| TC-001 \| Search Ford F-150 and verify first result` | Results > 0, first result contains "Ford F-150". **PASS** |
+| 2 | `TP-001 \| TC-002 \| Search Chevrolet Colodrado and verify first result` | Results > 0, first result contains misspelling. **FAIL (expected)** |
+| 3 | `TP-001 \| TC-003 \| Search F-150, apply year filter, and verify results count changes` | Result count changes after year filter. **PASS** |
 
 > **Test 2** is a negative test. The site auto-corrects the misspelling, so `assertTrue` fails by design. This validates that the framework correctly reports real assertion failures.
 
@@ -49,23 +48,23 @@ Two tests pass, one intentionally fails. See [Test Scenarios](#test-scenarios) f
 
 ```bash
 mvn clean test -Denv=PROD     # https://www.rbauction.com (default)
-mvn clean test -Denv=STG      # //todo need to add STG ENV
-mvn clean test -Denv=DEV      # //todo need to add DEV ENV
+mvn clean test -Denv=STG      # https://staging.rbauction.com
+mvn clean test -Denv=DEV      # https://dev.rbauction.com
 ```
 
 Add custom environments in `config.properties`:
 
 ```properties
-env.qa=QA ENV
+env.qa=https://qa.rbauction.com
 ```
 
 Direct URL override is also supported:
 
 ```bash
-mvn clean test -DbaseUrl="ENV"
+mvn clean test -DbaseUrl=https://custom.rbauction.com
 ```
 
-**Resolution order:** `-Denv` → `-DbaseUrl` → `base.url` from config file.
+**Resolution order:** `-Denv` > `-DbaseUrl` > `base.url` from config file.
 
 ### Headless Mode
 
@@ -87,43 +86,6 @@ mvn clean test -Dparallel=none
 mvn clean test -Denv=PROD -Dheadless=true -Dbrowser=chrome
 ```
 
-### Remote Execution (Selenoid / Selenium Grid)
-
-Run tests on a remote browser instance instead of a local Chrome:
-
-```bash
-mvn clean test -DremoteUrl="DremoteUrl"
-Example http://selenoid.company.com:4444/wd/hub
-```
-
-With specific browser version and Selenoid options:
-
-```bash
-mvn clean test \
-  -DremoteUrl="remoteUrl"\
-  -Dbrowser.version=125.0 \
-  -Dselenoid.enable.vnc=true \
-  -Dselenoid.enable.video=true
-```
-
-Or set defaults in `config.properties`:
-
-```properties
-remote.url=remote
-browser.version=125.0
-selenoid.enable.vnc=true
-selenoid.enable.video=false
-```
-
-When `remote.url` is empty (default), tests run locally with WebDriverManager.
-
-| Flag | Default | Description |
-|------|---------|-------------|
-| `-DremoteUrl` | _(empty)_ | Remote WebDriver hub URL |
-| `-Dbrowser.version` | _(empty)_ | Browser version for remote (e.g. `125.0`) |
-| `-Dselenoid.enable.vnc` | `true` | Live browser view via Selenoid UI |
-| `-Dselenoid.enable.video` | `false` | Record test execution video |
-
 ---
 
 ## Configuration
@@ -140,14 +102,8 @@ timeout.dialog.wait=5
 
 # Environment aliases
 env.prod=https://www.rbauction.com
-env.stg=need to add
-env.dev=need to add
-
-# Remote WebDriver / Selenoid (leave blank for local)
-remote.url=
-browser.version=
-selenoid.enable.vnc=true
-selenoid.enable.video=false
+env.stg=https://staging.rbauction.com
+env.dev=https://dev.rbauction.com
 ```
 
 Every property can be overridden from the command line: `-Dbrowser=firefox`, `-Dheadless=true`, etc.
@@ -160,7 +116,7 @@ After running tests, reports are generated in `test-reports/`:
 
 | File | Format | Description |
 |------|--------|-------------|
-| `ExtentReport.html` | HTML | Step-by-step report with embedded failure screenshots |
+| `ExtentReport.html` | HTML | Step-by-step report with TestPlan/TestCase IDs and failure screenshots |
 | `testng-results.xml` | XML | Machine-readable results for CI pipelines |
 
 Pre-generated reports are included in the repository for immediate review.
@@ -203,7 +159,7 @@ Pre-generated reports are included in the repository for immediate review.
 │   │   ├── HomePage.java                 # open() + searchFor()
 │   │   └── SearchResultsPage.java        # Result count, first result, year filter
 │   └── utils/
-│       ├── DriverFactory.java            # Local + Remote (Selenoid/Grid) driver creation
+│       ├── DriverFactory.java            # Chrome/Firefox driver creation + headless
 │       └── ScreenshotUtils.java          # Base64 screenshot capture
 │
 └── src/test/
