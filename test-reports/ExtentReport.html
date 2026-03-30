@@ -35,7 +35,7 @@
 <a href="#"><span class="badge badge-primary">Test Results</span></a>
 </li>
 <li class="m-r-10">
-<a href="#"><span class="badge badge-primary">Mar 29, 2026 01:28:28 PM</span></a>
+<a href="#"><span class="badge badge-primary">Mar 29, 2026 04:34:32 PM</span></a>
 </li>
 </ul>
 </div>
@@ -85,9 +85,9 @@
           tag=""
           device="">
           <div class="test-detail">
-            <p class="name">testSearchWithYearFilter</p>
+            <p class="name">TP-001 | TC-001 | Search Ford F-150 and verify first result</p>
             <p class="text-sm">
-              <span>1:28:30 PM</span> / <span>00:00:31:976</span>
+              <span>4:34:35 PM</span> / <span>00:00:22:155</span>
               <span class="badge pass-bg log float-right">Pass</span>
             </p>
           </div>
@@ -95,16 +95,16 @@
 <div class="detail-head">
 <div class="p-v-10">
 <div class="info">
-<h5 class="test-status text-pass">testSearchWithYearFilter</h5>
-<span class='badge badge-success'>03.29.2026 1:28:30 PM</span>
-<span class='badge badge-danger'>03.29.2026 1:29:02 PM</span>
-<span class='badge badge-default'>00:00:31:976</span>
+<h5 class="test-status text-pass">TP-001 | TC-001 | Search Ford F-150 and verify first result</h5>
+<span class='badge badge-success'>03.29.2026 4:34:35 PM</span>
+<span class='badge badge-danger'>03.29.2026 4:34:57 PM</span>
+<span class='badge badge-default'>00:00:22:155</span>
 &middot; <span class='uri-anchor badge badge-default'>#test-id=2</span>
 <span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
 <span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
 <span title='Expand all nodes' class='badge badge-default pointer float-right et'><i class="fa fa-expand"></i></span>
 </div>
-<div class="m-t-10 m-l-5">Search and apply year filter: verify result count changes</div>
+<div class="m-t-10 m-l-5">Verify search results relevance for a given search term</div>
 </div>
 </div><div class="detail-body mt-4">
 <table class="table table-sm">
@@ -112,49 +112,42 @@
   <tbody>
       <tr class="event-row">
         <td><span class="badge log pass-bg">Pass</span></td>
-        <td>1:28:30 PM</td>
+        <td>4:34:35 PM</td>
         <td>
           Navigate to www.rbauction.com
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log pass-bg">Pass</span></td>
-        <td>1:28:30 PM</td>
+        <td>4:34:35 PM</td>
         <td>
-          Searches for "F-150"
+          Searches for "Ford F-150"
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log pass-bg">Pass</span></td>
-        <td>1:28:52 PM</td>
+        <td>4:34:57 PM</td>
         <td>
           Captures the total number of results returned
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log pass-bg">Pass</span></td>
-        <td>1:28:52 PM</td>
+        <td>4:34:57 PM</td>
         <td>
-          This should be represented as an integer: 453
+          This should be represented as an integer: 430
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log pass-bg">Pass</span></td>
-        <td>1:28:52 PM</td>
+        <td>4:34:57 PM</td>
         <td>
-          Applies the "Year" filter with a range from 2010 to 2026
+          Verifies that the first result on the page has the word "Ford F-150" in it
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log pass-bg">Pass</span></td>
-        <td>1:29:02 PM</td>
-        <td>
-          Verifies the number of results is different using numerical comparison: 453 → 400
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log pass-bg">Pass</span></td>
-        <td>1:29:02 PM</td>
+        <td>4:34:57 PM</td>
         <td>
           Test passed
         </td>
@@ -169,9 +162,9 @@
           tag=""
           device="">
           <div class="test-detail">
-            <p class="name">testSearchAndVerifyFirstResult</p>
+            <p class="name">TP-001 | TC-003 | Search F-150, apply year filter, and verify results count changes</p>
             <p class="text-sm">
-              <span>1:28:30 PM</span> / <span>00:00:20:076</span>
+              <span>4:34:35 PM</span> / <span>00:00:35:818</span>
               <span class="badge pass-bg log float-right">Pass</span>
             </p>
           </div>
@@ -179,16 +172,16 @@
 <div class="detail-head">
 <div class="p-v-10">
 <div class="info">
-<h5 class="test-status text-pass">testSearchAndVerifyFirstResult</h5>
-<span class='badge badge-success'>03.29.2026 1:28:30 PM</span>
-<span class='badge badge-danger'>03.29.2026 1:28:50 PM</span>
-<span class='badge badge-default'>00:00:20:076</span>
+<h5 class="test-status text-pass">TP-001 | TC-003 | Search F-150, apply year filter, and verify results count changes</h5>
+<span class='badge badge-success'>03.29.2026 4:34:35 PM</span>
+<span class='badge badge-danger'>03.29.2026 4:35:11 PM</span>
+<span class='badge badge-default'>00:00:35:818</span>
 &middot; <span class='uri-anchor badge badge-default'>#test-id=1</span>
 <span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
 <span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
 <span title='Expand all nodes' class='badge badge-default pointer float-right et'><i class="fa fa-expand"></i></span>
 </div>
-<div class="m-t-10 m-l-5">Search and verify first result contains expected term</div>
+<div class="m-t-10 m-l-5">Verify that applying a year filter changes the result count</div>
 </div>
 </div><div class="detail-body mt-4">
 <table class="table table-sm">
@@ -196,42 +189,49 @@
   <tbody>
       <tr class="event-row">
         <td><span class="badge log pass-bg">Pass</span></td>
-        <td>1:28:30 PM</td>
+        <td>4:34:35 PM</td>
         <td>
           Navigate to www.rbauction.com
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log pass-bg">Pass</span></td>
-        <td>1:28:30 PM</td>
+        <td>4:34:35 PM</td>
         <td>
-          Searches for "Ford F-150"
+          Searches for "F-150"
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log pass-bg">Pass</span></td>
-        <td>1:28:50 PM</td>
+        <td>4:34:58 PM</td>
         <td>
           Captures the total number of results returned
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log pass-bg">Pass</span></td>
-        <td>1:28:50 PM</td>
+        <td>4:34:59 PM</td>
         <td>
-          This should be represented as an integer: 430
+          This should be represented as an integer: 453
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log pass-bg">Pass</span></td>
-        <td>1:28:50 PM</td>
+        <td>4:34:59 PM</td>
         <td>
-          Verifies that the first result on the page has the word "Ford F-150" in it
+          Applies the "Year" filter with a range from 2010 to 2026
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log pass-bg">Pass</span></td>
-        <td>1:28:50 PM</td>
+        <td>4:35:11 PM</td>
+        <td>
+          Verifies the number of results is different using numerical comparison: 453 → 400
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>4:35:11 PM</td>
         <td>
           Test passed
         </td>
@@ -246,9 +246,9 @@
           tag=""
           device="">
           <div class="test-detail">
-            <p class="name">testSearchAndVerifyFirstResult</p>
+            <p class="name">TP-001 | TC-002 | Search Chevrolet Colodrado and verify first result</p>
             <p class="text-sm">
-              <span>1:28:51 PM</span> / <span>00:00:18:992</span>
+              <span>4:34:58 PM</span> / <span>00:00:23:092</span>
               <span class="badge fail-bg log float-right">Fail</span>
             </p>
           </div>
@@ -256,16 +256,16 @@
 <div class="detail-head">
 <div class="p-v-10">
 <div class="info">
-<h5 class="test-status text-fail">testSearchAndVerifyFirstResult</h5>
-<span class='badge badge-success'>03.29.2026 1:28:51 PM</span>
-<span class='badge badge-danger'>03.29.2026 1:29:10 PM</span>
-<span class='badge badge-default'>00:00:18:992</span>
+<h5 class="test-status text-fail">TP-001 | TC-002 | Search Chevrolet Colodrado and verify first result</h5>
+<span class='badge badge-success'>03.29.2026 4:34:58 PM</span>
+<span class='badge badge-danger'>03.29.2026 4:35:21 PM</span>
+<span class='badge badge-default'>00:00:23:092</span>
 &middot; <span class='uri-anchor badge badge-default'>#test-id=3</span>
 <span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
 <span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
 <span title='Expand all nodes' class='badge badge-default pointer float-right et'><i class="fa fa-expand"></i></span>
 </div>
-<div class="m-t-10 m-l-5">Search and verify first result contains expected term</div>
+<div class="m-t-10 m-l-5">Verify search results relevance for a given search term</div>
 </div>
 </div><div class="detail-body mt-4">
 <table class="table table-sm">
@@ -273,48 +273,48 @@
   <tbody>
       <tr class="event-row">
         <td><span class="badge log pass-bg">Pass</span></td>
-        <td>1:28:51 PM</td>
+        <td>4:34:58 PM</td>
         <td>
           Navigate to www.rbauction.com
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log pass-bg">Pass</span></td>
-        <td>1:28:51 PM</td>
+        <td>4:34:58 PM</td>
         <td>
           Searches for "Chevrolet Colodrado"
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log pass-bg">Pass</span></td>
-        <td>1:29:09 PM</td>
+        <td>4:35:20 PM</td>
         <td>
           Captures the total number of results returned
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log pass-bg">Pass</span></td>
-        <td>1:29:10 PM</td>
+        <td>4:35:20 PM</td>
         <td>
           This should be represented as an integer: 661
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log pass-bg">Pass</span></td>
-        <td>1:29:10 PM</td>
+        <td>4:35:20 PM</td>
         <td>
           Verifies that the first result on the page has the word "Chevrolet Colodrado" in it
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log fail-bg">Fail</span></td>
-        <td>1:29:10 PM</td>
+        <td>4:35:21 PM</td>
         <td>
           <textarea readonly class="code-block">java.lang.AssertionError: First result should contain 'Chevrolet Colodrado', got: 2021 Chevrolet Silverado 1500 Custom 4x4 Crew Cab Pickup expected [true] but found [false]
 	at org.testng.Assert.fail(Assert.java:111)
 	at org.testng.Assert.failNotEquals(Assert.java:1578)
 	at org.testng.Assert.assertTrue(Assert.java:57)
-	at com.rbauction.tests.smoke.SearchTests.testSearchAndVerifyFirstResult(SearchTests.java:31)
+	at com.rbauction.tests.smoke.SearchTests.shouldValidateSearchResultRelevance(SearchTests.java:33)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
 	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
@@ -337,7 +337,7 @@
       </tr>
       <tr class="event-row">
         <td><span class="badge log fail-bg">Fail</span></td>
-        <td>1:29:10 PM</td>
+        <td>4:35:21 PM</td>
         <td>
           Screenshot
     <div class="row mb-3"><div class="col-md-3">
@@ -396,9 +396,9 @@
 <tbody>
 <tr class="tag-test-status" status="fail">
 <td><span class="badge log fail-bg">Fail</span></td>
-<td>13:28:51 PM</td>
+<td>16:34:58 PM</td>
 <td>
-<a href="#" class="linked" test-id='3' id='3'>testSearchAndVerifyFirstResult</a>
+<a href="#" class="linked" test-id='3' id='3'>TP-001 | TC-002 | Search Chevrolet Colodrado and verify first result</a>
 </td>
 </tr>
 </tbody>
@@ -418,13 +418,13 @@
 <div class="col-md-3">
 <div class="card"><div class="card-body">
 <p class="m-b-0">Started</p>
-<h3>Mar 29, 2026 01:28:28 PM</h3>
+<h3>Mar 29, 2026 04:34:32 PM</h3>
 </div></div>
 </div>
 <div class="col-md-3">
 <div class="card"><div class="card-body">
 <p class="m-b-0">Ended</p>
-<h3>Mar 29, 2026 01:29:10 PM</h3>
+<h3>Mar 29, 2026 04:35:21 PM</h3>
 </div></div>
 </div>
 <div class="col-md-3">
@@ -494,7 +494,7 @@
 </div></div>
 <script>
 var timeline = {
-"testSearchWithYearFilter":31.976,"testSearchAndVerifyFirstResult":20.076,"testSearchAndVerifyFirstResult":18.992
+"TP-001 | TC-001 | Search Ford F-150 and verify first result":22.155,"TP-001 | TC-003 | Search F-150, apply year filter, and verify results count changes":35.818,"TP-001 | TC-002 | Search Chevrolet Colodrado and verify first result":23.092
 };
 </script>
 <div class="row">
