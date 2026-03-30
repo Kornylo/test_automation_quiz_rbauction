@@ -27,6 +27,13 @@ public class TestListener implements ITestListener {
         }
     }
 
+    public static void setTestName(String displayName) {
+        ExtentTest extentTest = test.get();
+        if (extentTest != null) {
+            extentTest.getModel().setName(displayName);
+        }
+    }
+
     private static ExtentReports createExtent() {
         ExtentReports ext = new ExtentReports();
         ExtentSparkReporter spark = new ExtentSparkReporter("test-reports/ExtentReport.html");
@@ -38,16 +45,17 @@ public class TestListener implements ITestListener {
 
     @Override
     public void onTestStart(ITestResult result) {
-        log.info("Test started: {}", result.getMethod().getMethodName());
+        String testName = resolveTestName(result);
+        log.info("Test started: {}", testName);
         ExtentTest extentTest = extent.createTest(
-                result.getMethod().getMethodName(),
+                testName,
                 result.getMethod().getDescription());
         test.set(extentTest);
     }
 
     @Override
     public void onTestSuccess(ITestResult result) {
-        log.info("Test passed: {}", result.getMethod().getMethodName());
+        log.info("Test passed: {}", resolveTestName(result));
         ExtentTest extentTest = test.get();
         if (extentTest != null) {
             extentTest.log(Status.PASS, "Test passed");
@@ -56,7 +64,7 @@ public class TestListener implements ITestListener {
 
     @Override
     public void onTestFailure(ITestResult result) {
-        log.info("Test failed: {}", result.getMethod().getMethodName());
+        log.info("Test failed: {}", resolveTestName(result));
         ExtentTest extentTest = test.get();
         if (extentTest != null) {
             extentTest.fail(result.getThrowable());
@@ -75,7 +83,7 @@ public class TestListener implements ITestListener {
 
     @Override
     public void onTestSkipped(ITestResult result) {
-        log.info("Test skipped: {}", result.getMethod().getMethodName());
+        log.info("Test skipped: {}", resolveTestName(result));
         ExtentTest extentTest = test.get();
         if (extentTest != null) {
             extentTest.log(Status.SKIP, "Test skipped: " + result.getThrowable());
@@ -86,5 +94,15 @@ public class TestListener implements ITestListener {
     public void onFinish(ITestContext context) {
         log.info("Test execution finished");
         extent.flush();
+    }
+
+    private String resolveTestName(ITestResult result) {
+        Object[] params = result.getParameters();
+        if (params != null && params.length > 0 && params[0] instanceof String firstParam) {
+            if (firstParam.contains(" | ")) {
+                return firstParam;
+            }
+        }
+        return result.getMethod().getMethodName();
     }
 }

@@ -1,9 +1,15 @@
 [
   {
+    "testPlanId": "TP-001",
+    "testCaseId": "TC-001",
+    "name": "Search Ford F-150 and verify first result",
     "searchTerm": "Ford F-150",
     "expectedInFirstResult": "Ford F-150"
   },
   {
+    "testPlanId": "TP-001",
+    "testCaseId": "TC-002",
+    "name": "Search Chevrolet Colodrado and verify first result",
     "searchTerm": "Chevrolet Colodrado",
     "expectedInFirstResult": "Chevrolet Colodrado"
   }

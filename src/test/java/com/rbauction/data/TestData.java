@@ -14,32 +14,39 @@ public class TestData {
     @DataProvider(name = "searchTerms")
     public static Object[][] searchTerms() {
         JsonArray array = readJsonArray("testdata/search-terms.json");
-        Object[][] data = new Object[array.size()][2];
+        Object[][] data = new Object[array.size()][3];
         for (int i = 0; i < array.size(); i++) {
             JsonObject obj = array.get(i).getAsJsonObject();
-            data[i][0] = obj.get("searchTerm").getAsString();
-            data[i][1] = obj.get("expectedInFirstResult").getAsString();
+            data[i][0] = buildDisplayName(obj);
+            data[i][1] = obj.get("searchTerm").getAsString();
+            data[i][2] = obj.get("expectedInFirstResult").getAsString();
         }
         return data;
     }
 
     @DataProvider(name = "yearFilter")
     public static Object[][] yearFilter() {
-        JsonObject obj = readJsonObject("testdata/year-filter.json");
-        return new Object[][]{
-                {obj.get("searchTerm").getAsString(), obj.get("fromYear").getAsInt()}
-        };
+        JsonArray array = readJsonArray("testdata/year-filter.json");
+        Object[][] data = new Object[array.size()][3];
+        for (int i = 0; i < array.size(); i++) {
+            JsonObject obj = array.get(i).getAsJsonObject();
+            data[i][0] = buildDisplayName(obj);
+            data[i][1] = obj.get("searchTerm").getAsString();
+            data[i][2] = obj.get("fromYear").getAsInt();
+        }
+        return data;
+    }
+
+    private static String buildDisplayName(JsonObject obj) {
+        String testPlanId = obj.get("testPlanId").getAsString();
+        String testCaseId = obj.get("testCaseId").getAsString();
+        String name = obj.get("name").getAsString();
+        return testPlanId + " | " + testCaseId + " | " + name;
     }
 
     private static JsonArray readJsonArray(String resourcePath) {
         InputStream is = TestData.class.getClassLoader().getResourceAsStream(resourcePath);
         if (is == null) throw new RuntimeException("Test data not found: " + resourcePath);
         return JsonParser.parseReader(new InputStreamReader(is, StandardCharsets.UTF_8)).getAsJsonArray();
-    }
-
-    private static JsonObject readJsonObject(String resourcePath) {
-        InputStream is = TestData.class.getClassLoader().getResourceAsStream(resourcePath);
-        if (is == null) throw new RuntimeException("Test data not found: " + resourcePath);
-        return JsonParser.parseReader(new InputStreamReader(is, StandardCharsets.UTF_8)).getAsJsonObject();
     }
 }

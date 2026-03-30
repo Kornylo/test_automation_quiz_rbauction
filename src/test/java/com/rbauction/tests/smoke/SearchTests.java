@@ -9,12 +9,15 @@ import org.testng.annotations.Test;
 import java.time.Year;
 
 import static com.rbauction.listeners.TestListener.step;
+import static com.rbauction.listeners.TestListener.setTestName;
 
 public class SearchTests extends BaseTest {
 
     @Test(dataProvider = "searchTerms", dataProviderClass = TestData.class,
-            description = "Search and verify first result contains expected term")
-    public void testSearchAndVerifyFirstResult(String searchTerm, String expectedInFirstResult) {
+            description = "Verify search results relevance for a given search term")
+    public void shouldValidateSearchResultRelevance(String displayName, String searchTerm, String expectedInFirstResult) {
+        setTestName(displayName);
+
         step("Navigate to www.rbauction.com");
         step("Searches for \"" + searchTerm + "\"");
         SearchResultsPage results = openHomePage().searchFor(searchTerm);
@@ -32,8 +35,9 @@ public class SearchTests extends BaseTest {
     }
 
     @Test(dataProvider = "yearFilter", dataProviderClass = TestData.class,
-            description = "Search and apply year filter: verify result count changes")
-    public void testSearchWithYearFilter(String searchTerm, int fromYear) {
+            description = "Verify that applying a year filter changes the result count")
+    public void shouldUpdateResultsWhenYearFilterApplied(String displayName, String searchTerm, int fromYear) {
+        setTestName(displayName);
         int currentYear = Year.now().getValue();
 
         step("Navigate to www.rbauction.com");

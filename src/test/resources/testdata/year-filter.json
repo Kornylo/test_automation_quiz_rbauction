@@ -1,4 +1,9 @@
-{
-  "searchTerm": "F-150",
-  "fromYear": 2010
-}
+[
+  {
+    "testPlanId": "TP-001",
+    "testCaseId": "TC-003",
+    "name": "Search F-150, apply year filter, and verify results count changes",
+    "searchTerm": "F-150",
+    "fromYear": 2010
+  }
+]
