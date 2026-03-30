@@ -1,4 +1,4 @@
-<h1 align="center">RB Auction Search Automation Framework</h1>
+<h1 align="center">Test Automation Framework</h1>
 
 <p align="center">
   End-to-end search testing for <a href="https://www.rbauction.com">rbauction.com</a> built with Java, Selenium WebDriver, TestNG, and ExtentReports.
@@ -21,7 +21,7 @@ Two tests pass, one intentionally fails. See [Test Scenarios](#test-scenarios) f
 |---------|---------|
 | **Page Object Model** | `BasePage`, `HomePage`, `SearchResultsPage`. Clean page abstraction |
 | **DriverFactory** | Chrome, headless mode, WebDriverManager auto-setup |
-| **Environment Aliases** | `-Denv=PROD\|STG\|DEV` resolves URLs from config |
+| **Environment Aliases** | `-Denv=PROD` resolves URL from config (extensible) |
 | **Parallel Execution** | 3 threads by default (`testng.xml`), configurable |
 | **ExtentReports** | Step-by-step HTML report with screenshot-on-failure |
 | **External Test Data** | Single JSON file + `@DataProvider` with type filtering and TestPlan/TestCase IDs |
@@ -47,8 +47,6 @@ Two tests pass, one intentionally fails. See [Test Scenarios](#test-scenarios) f
 
 ```bash
 mvn clean test -Denv=PROD     # https://www.rbauction.com (default)
-mvn clean test -Denv=STG      #todo
-mvn clean test -Denv=DEV      #todo
 ```
 
 Direct URL override is also supported:
@@ -92,10 +90,8 @@ timeout.page.load=60
 timeout.explicit.wait=30
 timeout.dialog.wait=5
 
-# Environment aliases
+# Environment alias
 env.prod=https://www.rbauction.com
-env.stg=todo
-env.dev=todo
 ```
 
 Every property can be overridden from the command line: `-Dheadless=true`, `-Dtimeout.page.load=120`, etc.

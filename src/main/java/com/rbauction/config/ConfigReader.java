@@ -47,7 +47,7 @@ public class ConfigReader {
             String envUrl = properties.getProperty(envKey);
             if (envUrl == null || envUrl.isBlank()) {
                 throw new RuntimeException("Unknown environment: " + env
-                        + ". Supported: PROD, STG, DEV (or add env." + env.toLowerCase() + " to config.properties)");
+                        + ". Supported: PROD (or add env." + env.toLowerCase() + " to config.properties)");
             }
             return envUrl;
         }
