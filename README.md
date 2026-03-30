@@ -20,7 +20,7 @@ Two tests pass, one intentionally fails. See [Test Scenarios](#test-scenarios) f
 | Feature | Details |
 |---------|---------|
 | **Page Object Model** | `BasePage`, `HomePage`, `SearchResultsPage`. Clean page abstraction |
-| **DriverFactory** | Chrome / Firefox, headless mode, WebDriverManager auto-setup |
+| **DriverFactory** | Chrome, headless mode, WebDriverManager auto-setup |
 | **Environment Aliases** | `-Denv=PROD\|STG\|DEV` resolves URLs from config |
 | **Parallel Execution** | 3 threads by default (`testng.xml`), configurable |
 | **ExtentReports** | Step-by-step HTML report with screenshot-on-failure |
@@ -48,20 +48,14 @@ Two tests pass, one intentionally fails. See [Test Scenarios](#test-scenarios) f
 
 ```bash
 mvn clean test -Denv=PROD     # https://www.rbauction.com (default)
-mvn clean test -Denv=STG      # https://staging.rbauction.com
-mvn clean test -Denv=DEV      # https://dev.rbauction.com
-```
-
-Add custom environments in `config.properties`:
-
-```properties
-env.qa=https://qa.rbauction.com
+mvn clean test -Denv=STG      #todo
+mvn clean test -Denv=DEV      #todo
 ```
 
 Direct URL override is also supported:
 
 ```bash
-mvn clean test -DbaseUrl=https://custom.rbauction.com
+mvn clean test -DbaseUrl=https://www.rbauction.com
 ```
 
 **Resolution order:** `-Denv` > `-DbaseUrl` > `base.url` from config file.
@@ -83,7 +77,7 @@ mvn clean test -Dparallel=none
 ### Combine Flags
 
 ```bash
-mvn clean test -Denv=PROD -Dheadless=true -Dbrowser=chrome
+mvn clean test -Denv=PROD -Dheadless=true
 ```
 
 ---
@@ -94,7 +88,6 @@ All settings live in `src/test/resources/config.properties`:
 
 ```properties
 base.url=https://www.rbauction.com
-browser=chrome
 headless=false
 timeout.page.load=60
 timeout.explicit.wait=30
@@ -102,11 +95,11 @@ timeout.dialog.wait=5
 
 # Environment aliases
 env.prod=https://www.rbauction.com
-env.stg=https://staging.rbauction.com
-env.dev=https://dev.rbauction.com
+env.stg=todo
+env.dev=todo
 ```
 
-Every property can be overridden from the command line: `-Dbrowser=firefox`, `-Dheadless=true`, etc.
+Every property can be overridden from the command line: `-Dheadless=true`, `-Dtimeout.page.load=120`, etc.
 
 ---
 
@@ -159,7 +152,7 @@ Pre-generated reports are included in the repository for immediate review.
 │   │   ├── HomePage.java                 # open() + searchFor()
 │   │   └── SearchResultsPage.java        # Result count, first result, year filter
 │   └── utils/
-│       ├── DriverFactory.java            # Chrome/Firefox driver creation + headless
+│       ├── DriverFactory.java            # Chrome driver creation + headless
 │       └── ScreenshotUtils.java          # Base64 screenshot capture
 │
 └── src/test/

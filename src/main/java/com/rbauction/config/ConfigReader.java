@@ -54,10 +54,6 @@ public class ConfigReader {
         return get("baseUrl", "base.url");
     }
 
-    public String getBrowser() {
-        return get("browser", "browser");
-    }
-
     public boolean isHeadless() {
         return Boolean.parseBoolean(get("headless", "headless"));
     }

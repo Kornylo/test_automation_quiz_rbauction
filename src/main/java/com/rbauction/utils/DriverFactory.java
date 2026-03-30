@@ -5,8 +5,6 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,26 +19,13 @@ public final class DriverFactory {
     }
 
     public static WebDriver createDriver() {
-        String browser = config.getBrowser().toLowerCase();
-        log.info("Creating {} driver (headless={})", browser, config.isHeadless());
+        log.info("Creating chrome driver (headless={})", config.isHeadless());
 
-        WebDriver driver = switch (browser) {
-            case "firefox" -> createFirefox();
-            default -> createChrome();
-        };
+        WebDriverManager.chromedriver().setup();
+        WebDriver driver = new ChromeDriver(buildChromeOptions());
 
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(config.getPageLoadTimeout()));
         return driver;
-    }
-
-    private static WebDriver createChrome() {
-        WebDriverManager.chromedriver().setup();
-        return new ChromeDriver(buildChromeOptions());
-    }
-
-    private static WebDriver createFirefox() {
-        WebDriverManager.firefoxdriver().setup();
-        return new FirefoxDriver(buildFirefoxOptions());
     }
 
     private static ChromeOptions buildChromeOptions() {
@@ -54,16 +39,6 @@ public final class DriverFactory {
             options.addArguments("--disable-blink-features=AutomationControlled");
             options.addArguments("--user-agent=Mozilla/5.0 (X11; Linux x86_64) " +
                     "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36");
-        }
-
-        return options;
-    }
-
-    private static FirefoxOptions buildFirefoxOptions() {
-        FirefoxOptions options = new FirefoxOptions();
-
-        if (config.isHeadless()) {
-            options.addArguments("--headless");
         }
 
         return options;
