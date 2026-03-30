@@ -1,6 +1,7 @@
 package com.rbauction.data;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.testng.annotations.DataProvider;
@@ -8,15 +9,19 @@ import org.testng.annotations.DataProvider;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TestData {
 
+    private static final String DATA_FILE = "testdata/test-data.json";
+
     @DataProvider(name = "searchTerms")
     public static Object[][] searchTerms() {
-        JsonArray array = readJsonArray("testdata/search-terms.json");
-        Object[][] data = new Object[array.size()][3];
-        for (int i = 0; i < array.size(); i++) {
-            JsonObject obj = array.get(i).getAsJsonObject();
+        List<JsonObject> entries = filterByType("search");
+        Object[][] data = new Object[entries.size()][3];
+        for (int i = 0; i < entries.size(); i++) {
+            JsonObject obj = entries.get(i);
             data[i][0] = buildDisplayName(obj);
             data[i][1] = obj.get("searchTerm").getAsString();
             data[i][2] = obj.get("expectedInFirstResult").getAsString();
@@ -26,15 +31,27 @@ public class TestData {
 
     @DataProvider(name = "yearFilter")
     public static Object[][] yearFilter() {
-        JsonArray array = readJsonArray("testdata/year-filter.json");
-        Object[][] data = new Object[array.size()][3];
-        for (int i = 0; i < array.size(); i++) {
-            JsonObject obj = array.get(i).getAsJsonObject();
+        List<JsonObject> entries = filterByType("yearFilter");
+        Object[][] data = new Object[entries.size()][3];
+        for (int i = 0; i < entries.size(); i++) {
+            JsonObject obj = entries.get(i);
             data[i][0] = buildDisplayName(obj);
             data[i][1] = obj.get("searchTerm").getAsString();
             data[i][2] = obj.get("fromYear").getAsInt();
         }
         return data;
+    }
+
+    private static List<JsonObject> filterByType(String type) {
+        JsonArray array = readJsonArray(DATA_FILE);
+        List<JsonObject> filtered = new ArrayList<>();
+        for (JsonElement element : array) {
+            JsonObject obj = element.getAsJsonObject();
+            if (type.equals(obj.get("type").getAsString())) {
+                filtered.add(obj);
+            }
+        }
+        return filtered;
     }
 
     private static String buildDisplayName(JsonObject obj) {

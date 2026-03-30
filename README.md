@@ -24,7 +24,7 @@ Two tests pass, one intentionally fails. See [Test Scenarios](#test-scenarios) f
 | **Environment Aliases** | `-Denv=PROD\|STG\|DEV` resolves URLs from config |
 | **Parallel Execution** | 3 threads by default (`testng.xml`), configurable |
 | **ExtentReports** | Step-by-step HTML report with screenshot-on-failure |
-| **External Test Data** | JSON files + `@DataProvider` with TestPlan/TestCase IDs |
+| **External Test Data** | Single JSON file + `@DataProvider` with type filtering and TestPlan/TestCase IDs |
 | **CI Ready** | GitHub Actions workflow included (`.github/workflows/test.yml`) |
 | **Retry Support** | `RetryAnalyzer` available (not actively applied, enable per-test) |
 
@@ -165,7 +165,7 @@ Pre-generated reports are included in the repository for immediate review.
 └── src/test/
     ├── java/com/rbauction/
     │   ├── data/
-    │   │   └── TestData.java             # @DataProvider, reads JSON test data
+    │   │   └── TestData.java             # @DataProvider, reads test-data.json, filters by type
     │   └── tests/smoke/
     │       └── SearchTests.java          # 2 test methods, 3 executions
     └── resources/
@@ -173,8 +173,7 @@ Pre-generated reports are included in the repository for immediate review.
         ├── logback-test.xml              # SLF4J logging config
         ├── testng.xml                    # Suite config (parallel, listeners)
         └── testdata/
-            ├── search-terms.json         # Ford F-150 + Chevrolet Colodrado
-            └── year-filter.json          # F-150, fromYear: 2010
+            └── test-data.json        # All test data (search + year filter)
 ```
 
 ---
